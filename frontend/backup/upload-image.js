@@ -44,7 +44,7 @@ $(document).ready(function (e) {
 
   });
 
-   $('#file').change(function() {
+  $('#file').change(function() {
 
     $('#message').empty();
 

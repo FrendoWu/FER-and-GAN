@@ -1,4 +1,7 @@
 <?php
+header('Cache-Control:no-cache,must-revalidate');   
+header('Pragma:no-cache');   
+header("Expires:0"); 
 session_start();
 
 if ( isset($_FILES["file"]["type"]) )
@@ -37,9 +40,10 @@ if ( isset($_FILES["file"]["type"]) )
             $type = pathinfo($targetPath, PATHINFO_EXTENSION);
             $data = file_get_contents($targetPath);
             $base64 = base64_encode($data);
+          $base64 = base64_encode($data);
           $data_string = "{\"data\":" . json_encode($base64) . "}";
           # echo $data_string;
-          $ch = curl_init('http://45.32.103.43');
+          $ch = curl_init('http://149.28.128.228');
           curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
           curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -52,7 +56,7 @@ if ( isset($_FILES["file"]["type"]) )
          # $dumpresult = var_dump(json_decode($result));
          # echo $dumpresult;
           # echo $result;
-          //echo "<div class=\"alert alert-success\" role=\"alert\">";
+          echo "<div class=\"alert alert-success\" role=\"alert\">";
           echo "<p><strong>" . $decode->{'msg'}. "</strong></p>";
           echo " ";
           $aaaaa = $decode->{'ganimg'};
@@ -95,37 +99,31 @@ if ( isset($_FILES["file"]["type"]) )
 
           $chart->setDataSet($dataSet);$chart->setTitle("Percentage");
           $chart->render("upload/sws3004.png");
-          echo " . ";
-          echo " <p>The probability of your emtion:</p> ";
+          echo " <p>.</p> ";
           $file22 = "upload/sws3004.png";
-
           if($fp22 = fopen($file22,"rb", 0))
           {
               $gambar = fread($fp22,filesize($file22));
               fclose($fp22);
               $base64 = chunk_split(base64_encode($gambar));
-              // 输出
               $encode = 'data:image/jpg;base64,' . $base64;
-              // echo $encode;
               echo "<img src = '{$encode}'/>";
           }
-          # echo "<img src = 'upload/sws3004.png'/>";
-/*          echo "<p>" .$decode->{'predictions'}[0]->{'description'}." is about ". $decode->{'predictions'}[0]->{'probability'} ."</p>";
+          echo "<p>" .$decode->{'predictions'}[0]->{'description'}." is about ". $decode->{'predictions'}[0]->{'probability'} ."</p>";
           echo "<p>" .$decode->{'predictions'}[1]->{'description'}." is about ". $decode->{'predictions'}[1]->{'probability'} ."</p>";
           echo "<p>" .$decode->{'predictions'}[2]->{'description'}." is about ". $decode->{'predictions'}[2]->{'probability'} ."</p>";
           echo "<p>" .$decode->{'predictions'}[3]->{'description'}." is about ". $decode->{'predictions'}[3]->{'probability'} ."</p>";
           echo "<p>" .$decode->{'predictions'}[4]->{'description'}." is about ". $decode->{'predictions'}[4]->{'probability'} ."</p>";
           echo "<p>" .$decode->{'predictions'}[5]->{'description'}." is about ". $decode->{'predictions'}[5]->{'probability'} ."</p>";
-          echo "<p>" .$decode->{'predictions'}[6]->{'description'}." is about ". $decode->{'predictions'}[6]->{'probability'} ."</p>";*/
+          echo "<p>" .$decode->{'predictions'}[6]->{'description'}." is about ". $decode->{'predictions'}[6]->{'probability'} ."</p>";
           # echo "<p>Image uploaded successful</p>";
           # echo "<p>File Name: <a href=\"". $targetPath . "\"><strong>" . $targetPath . "</strong></a></p>";
           # echo "<p>Type: <strong>" . $_FILES["file"]["type"] . "</strong></p>";
           # echo "<p>Size: <strong>" . round($_FILES["file"]["size"]/1024, 2) . " kB</strong></p>";
           # echo "<p>Temp file: <strong>" . $_FILES["file"]["tmp_name"] . "</strong></p>";
           echo "<p> . </p>";
-          echo "</div>";
-          echo "<p>We made black hair,blond hair, brown hair, change your gender to female, and make you look yournger: </p>";
           echo "<img src = '{$img}'/>";
+          echo "</div>";
 //        }
       }
     }
